@@ -649,10 +649,10 @@ Die E-Mail soll:
       })
     });
 
-    const data = await response.json();
-   const raw = (data.content || []).map(b => b.text || '').join('');
-    const clean = raw.replace(/```json|```/g, '').trim();
-    const parsed = JSON.parse(clean);
+   console.log('API Antwort:', JSON.stringify(data));
+const raw = (data.content || []).map(b => b.text || '').join('');
+const clean = raw.replace(/```json|```/g, '').trim();
+const parsed = JSON.parse(clean);
 
     document.getElementById('toField').textContent = `${name}, ${company}`;
     document.getElementById('subjectField').textContent = parsed.subject;
