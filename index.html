@@ -638,21 +638,19 @@ Die E-Mail soll:
     const response = await fetch("/.netlify/functions/proxy", {
       method: "POST",
       headers: {
-  "Content-Type": "application/json",
-  "x-api-key": "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",
-  "anthropic-version": "2023-06-01"
-},
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
         model: "claude-sonnet-4-20250514",
         max_tokens: 1000,
         messages: [{ role: "user", content: prompt }]
       })
     });
-
-   console.log('API Antwort:', JSON.stringify(data));
-const raw = (data.content || []).map(b => b.text || '').join('');
-const clean = raw.replace(/```json|```/g, '').trim();
-const parsed = JSON.parse(clean);
+    const data = await response.json();
+    console.log('API Antwort:', JSON.stringify(data));
+    const raw = (data.content || []).map(b => b.text || '').join('');
+    const clean = raw.replace(/```json|```/g, '').trim();
+    const parsed = JSON.parse(clean);
 
     document.getElementById('toField').textContent = `${name}, ${company}`;
     document.getElementById('subjectField').textContent = parsed.subject;
